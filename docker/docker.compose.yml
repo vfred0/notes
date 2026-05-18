@@ -1,7 +1,7 @@
 services:
   notes-database:
     container_name: notes-database
-    image: postgres:18-3.6-alpine
+    image: postgres:18.0-alpine
     environment:
       - PGTZ=America/Guayaquil
       - TZ=America/Guayaquil
