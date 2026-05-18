@@ -1,0 +1,24 @@
+services:
+  notes-database:
+    container_name: notes-database
+    image: postgres:18-3.6-alpine
+    environment:
+      - PGTZ=America/Guayaquil
+      - TZ=America/Guayaquil
+      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U notes" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - notes-data:/var/lib/postgresql
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
+volumes:
+  notes-data: { }
